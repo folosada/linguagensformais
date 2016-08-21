@@ -146,7 +146,9 @@ public class Aplicacao extends javax.swing.JFrame {
     public List<Palavra> getPalavras(String text){
         Palavra palavra = null;
         
-        text = text.replace("\n", "\n\n").replace(" ", "\n").replace("\\t", "\n");
+        text = text.replace("\n", "\n\n");
+        text = text.replace(" ", "\n");
+        text = text.replace("\t", "");
         
         String[] linha = text.split("\\n\\n");
         List<Palavra> lstPalavra = new ArrayList<>();
