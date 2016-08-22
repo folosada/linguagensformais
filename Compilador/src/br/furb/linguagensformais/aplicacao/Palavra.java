@@ -5,16 +5,14 @@
  */
 package br.furb.linguagensformais.aplicacao;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author Gabriel Bernardi
  */
 public class Palavra {
-//    private static final String separador = "\\n";
+    
     private String sequencia;
+    private EnumValido resultado;
     private int linha;
 
     public Palavra(){}
@@ -25,6 +23,14 @@ public class Palavra {
 
     public void setSequencia(String sequencia) {
         this.sequencia = sequencia;
+    }
+
+    public EnumValido getResultado() {
+        return resultado;
+    }
+
+    public void setResultado(EnumValido resultado) {
+        this.resultado = resultado;
     }
 
     public int getLinha() {

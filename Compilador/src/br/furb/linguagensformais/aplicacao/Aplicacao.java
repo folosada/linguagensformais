@@ -139,10 +139,7 @@ public class Aplicacao extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void analisar() {
-//        Palavra palavra = new Palavra();
         List<Palavra> lstPalavra = this.getPalavras(this.JTA_Editor_Palavras.getText().toString());
-        
-//        JOptionPane.showMessageDialog(null, teste);
     }
     
     public List<Palavra> getPalavras(String text){
@@ -158,52 +155,22 @@ public class Aplicacao extends javax.swing.JFrame {
                     palavra = new Palavra();
                     palavra.setSequencia(palavras[teste]);
                     palavra.setLinha(numeroLinha + 1);
+                    palavra.setResultado(this.palavraValida(palavra));
                     lstPalavra.add(palavra);
                 }
             }
+            
         }
-        
+        JOptionPane.showMessageDialog(null, palavra.getResultado().getValor());
         return lstPalavra;
     }
     
-//    public List<Palavra> getPalavras(String text){
-//        Palavra palavra = null;
-//        
-//        text = text.replace("\n", "\n\n\n\n");
-//        text = text.replace("\t", "");
-//        text = text.replace(" ", "\n");
-//        
-//        String[] linha = text.split("\\n\\n\\n\\n");
-//        List<Palavra> lstPalavra = new ArrayList<>();
-//        for (int numeroLinha = 0; numeroLinha < linha.length; numeroLinha++) {
-//            String palavras[] = linha[numeroLinha].split("\\n");
-//            for (int p = 0; p < palavras.length; p++) {
-//                palavra = new Palavra();
-//                palavra.setSequencia(palavras[p]);
-//                palavra.setLinha(numeroLinha + 1);
-//                lstPalavra.add(palavra);
-//            }
-//        }
-//        
-//        return lstPalavra;
-//    }
-    
-    //APENAS TESTE
-//    public List<Palavra> getPalavras(String text){
-//        Palavra palavra = null;
-//        boolean teste = text.contains(" ");
-//        System.out.println(teste);
-//        String[] linha = text.split("\\n");
-//        List<Palavra> lstPalavra = new ArrayList<>();
-//        for (int numeroLinha = 0; numeroLinha < linha.length; numeroLinha++) {
-//            String palavras[] = linha[numeroLinha].split("\\t");
-//            for (int p = 0; p < palavras.length; p++) {
-//                palavra = new Palavra();
-//                palavra.setDescricao(palavras[p]);
-//                palavra.setLinha(numeroLinha + 1);
-//                lstPalavra.add(palavra);
-//            }
-//        }
-//        return null;
-//    }
+    private EnumValido palavraValida(Palavra palavra) {
+        if(palavra.getSequencia().equals(";")
+                || palavra.getSequencia().equals(",")
+                || palavra.getSequencia().equals(".")) {
+            return EnumValido.SIMBOLO_ESPECIAL;
+        }
+        return null;
+    }
 }
