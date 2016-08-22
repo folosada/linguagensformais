@@ -148,12 +148,12 @@ public class Aplicacao extends javax.swing.JFrame {
         
         String[] linha = text.split("\\n");
         for (int numeroLinha = 0; numeroLinha < linha.length; numeroLinha++) {
-            String p = linha[numeroLinha].replace(" ", "\n").replace("\t", "\n");
-            String[] palavras = p.split("\\n");
-            for (int teste = 0; teste < palavras.length; teste++) {
-                if (!palavras[teste].equals("")){
+            String palavraFormatada = linha[numeroLinha].replace(" ", "\n").replace("\t", "\n");
+            String[] palavras = palavraFormatada.split("\\n");
+            for (int p = 0; p < palavras.length; p++) {
+                if (!palavras[p].equals("")){
                     palavra = new Palavra();
-                    palavra.setSequencia(palavras[teste]);
+                    palavra.setSequencia(palavras[p]);
                     palavra.setLinha(numeroLinha + 1);
                     palavra.setResultado(this.palavraValida(palavra));
                     lstPalavra.add(palavra);
@@ -161,7 +161,6 @@ public class Aplicacao extends javax.swing.JFrame {
             }
             
         }
-        JOptionPane.showMessageDialog(null, palavra.getResultado().getValor());
         return lstPalavra;
     }
     
@@ -170,7 +169,13 @@ public class Aplicacao extends javax.swing.JFrame {
                 || palavra.getSequencia().equals(",")
                 || palavra.getSequencia().equals(".")) {
             return EnumValido.SIMBOLO_ESPECIAL;
+        } else if (this.testarPalavra()){
+            
         }
         return null;
+    }
+
+    private boolean testarPalavra() {
+        return false;
     }
 }
