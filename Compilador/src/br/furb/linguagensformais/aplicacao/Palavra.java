@@ -14,17 +14,17 @@ import java.util.List;
  */
 public class Palavra {
 //    private static final String separador = "\\n";
-    private String descricao;
+    private String sequencia;
     private int linha;
 
     public Palavra(){}
 
-    public String getDescricao() {
-        return descricao;
+    public String getSequencia() {
+        return sequencia;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setSequencia(String sequencia) {
+        this.sequencia = sequencia;
     }
 
     public int getLinha() {

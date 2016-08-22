@@ -7,6 +7,7 @@ package br.furb.linguagensformais.aplicacao;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.control.ScrollBar;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +21,7 @@ public class Aplicacao extends javax.swing.JFrame {
      */
     public Aplicacao() {
         initComponents();
+        JTA_Editor_Palavras.setLineWrap(true);
     }
 
     /**
@@ -145,25 +147,46 @@ public class Aplicacao extends javax.swing.JFrame {
     
     public List<Palavra> getPalavras(String text){
         Palavra palavra = null;
-        
-        text = text.replace("\n", "\n\n");
-        text = text.replace(" ", "\n");
-        text = text.replace("\t", "");
-        
-        String[] linha = text.split("\\n\\n");
         List<Palavra> lstPalavra = new ArrayList<>();
+        
+        String[] linha = text.split("\\n");
         for (int numeroLinha = 0; numeroLinha < linha.length; numeroLinha++) {
-            String palavras[] = linha[numeroLinha].split("\\n");
-            for (int p = 0; p < palavras.length; p++) {
-                palavra = new Palavra();
-                palavra.setDescricao(palavras[p]);
-                palavra.setLinha(numeroLinha + 1);
-                lstPalavra.add(palavra);
+            String p = linha[numeroLinha].replace(" ", "\n").replace("\t", "\n");
+            String[] palavras = p.split("\\n");
+            for (int teste = 0; teste < palavras.length; teste++) {
+                if (!palavras[teste].equals("")){
+                    palavra = new Palavra();
+                    palavra.setSequencia(palavras[teste]);
+                    palavra.setLinha(numeroLinha + 1);
+                    lstPalavra.add(palavra);
+                }
             }
         }
         
         return lstPalavra;
     }
+    
+//    public List<Palavra> getPalavras(String text){
+//        Palavra palavra = null;
+//        
+//        text = text.replace("\n", "\n\n\n\n");
+//        text = text.replace("\t", "");
+//        text = text.replace(" ", "\n");
+//        
+//        String[] linha = text.split("\\n\\n\\n\\n");
+//        List<Palavra> lstPalavra = new ArrayList<>();
+//        for (int numeroLinha = 0; numeroLinha < linha.length; numeroLinha++) {
+//            String palavras[] = linha[numeroLinha].split("\\n");
+//            for (int p = 0; p < palavras.length; p++) {
+//                palavra = new Palavra();
+//                palavra.setSequencia(palavras[p]);
+//                palavra.setLinha(numeroLinha + 1);
+//                lstPalavra.add(palavra);
+//            }
+//        }
+//        
+//        return lstPalavra;
+//    }
     
     //APENAS TESTE
 //    public List<Palavra> getPalavras(String text){
