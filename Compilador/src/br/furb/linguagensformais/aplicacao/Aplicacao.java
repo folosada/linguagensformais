@@ -197,15 +197,14 @@ public class Aplicacao extends javax.swing.JFrame {
     
     private String[] obterSimbolos(String sequencia){
         String[] separarCaracteres = sequencia.split("");
-        StringBuilder s = new StringBuilder();
-        for (int i = 0; i < separarCaracteres.length; i++) {
-            if(!separarCaracteres[i].equals(";") && !separarCaracteres[i].equals(".") 
-                    && !separarCaracteres[i].equals(",")){
-                s.append(separarCaracteres[i]);
+        StringBuilder palavras = new StringBuilder();
+        for (String separarCaractere : separarCaracteres) {
+            if (!separarCaractere.equals(";") && !separarCaractere.equals(".") && !separarCaractere.equals(",")) {
+                palavras.append(separarCaractere);
             } else {
-                s.append("\n" + separarCaracteres[i]);
+                palavras.append("\n").append(separarCaractere);
             }
         }
-        return s.toString().split("\n");
+        return palavras.toString().split("\n");
     }
 }
