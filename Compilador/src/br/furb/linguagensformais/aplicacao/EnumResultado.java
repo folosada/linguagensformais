@@ -9,7 +9,7 @@ package br.furb.linguagensformais.aplicacao;
  *
  * @author Gabriel Bernardi
  */
-public enum EnumValido {
+public enum EnumResultado {
     
     PALAVRA_VALIDA("Palavra Válida"),
     PALAVRA_INVALIDA("Erro: Palavra Inválida"),
@@ -18,7 +18,7 @@ public enum EnumValido {
     
     private String valor;
 
-    EnumValido(String valor) {
+    EnumResultado(String valor) {
         this.valor = valor;
     }
     

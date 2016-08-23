@@ -167,10 +167,10 @@ public class Aplicacao extends javax.swing.JFrame {
         return palavra;
     }
     
-    private EnumValido sequenciaValida(Palavra palavra) {
+    private EnumResultado sequenciaValida(Palavra palavra) {
         String sequencia = palavra.getSequencia();
         if(this.simboloEspecial(sequencia)) {
-            return EnumValido.SIMBOLO_ESPECIAL;
+            return EnumResultado.SIMBOLO_ESPECIAL;
         } else if (this.testarSequencia(sequencia)){
             
         }
@@ -178,6 +178,10 @@ public class Aplicacao extends javax.swing.JFrame {
     }
 
     private boolean testarSequencia(String sequencia) {
+        String[] caractere = sequencia.split("");
+//        for (int i = 0; i < caractere.length; i++) {
+//            if ()
+//        }
         return false;
     }
 
