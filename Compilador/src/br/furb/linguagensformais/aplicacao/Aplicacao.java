@@ -146,7 +146,7 @@ public class Aplicacao extends javax.swing.JFrame {
             String[] sequencias = palavraFormatada.split("\\n");
             for (String sequencia : sequencias) {
                 if (this.simboloEspecial(sequencia)) {
-                    String[] simbolosPalavras = this.obterSimbolos(sequencia);
+                    String[] simbolosPalavras = this.obterSequenciaEspecial(sequencia);
                     for (String simbolosPalavra : simbolosPalavras) {
                         lstPalavra.add(this.criarPalavra(simbolosPalavra, numeroLinha + 1));
                     }
@@ -163,20 +163,21 @@ public class Aplicacao extends javax.swing.JFrame {
         Palavra palavra = new Palavra();
         palavra.setSequencia(sequencia);
         palavra.setLinha(numeroLinha + 1);
-        palavra.setResultado(this.palavraValida(palavra));
+        palavra.setResultado(this.sequenciaValida(palavra));
         return palavra;
     }
     
-    private EnumValido palavraValida(Palavra palavra) {
-        if(this.simboloEspecial(palavra.getSequencia())) {
+    private EnumValido sequenciaValida(Palavra palavra) {
+        String sequencia = palavra.getSequencia();
+        if(this.simboloEspecial(sequencia)) {
             return EnumValido.SIMBOLO_ESPECIAL;
-        } else if (this.testarPalavra()){
+        } else if (this.testarSequencia(sequencia)){
             
         }
         return null;
     }
 
-    private boolean testarPalavra() {
+    private boolean testarSequencia(String sequencia) {
         return false;
     }
 
@@ -185,7 +186,7 @@ public class Aplicacao extends javax.swing.JFrame {
                 || palavra.contains(",");
     }
     
-    private String[] obterSimbolos(String sequencia){
+    private String[] obterSequenciaEspecial(String sequencia){
         String[] separarCaracteres = sequencia.split("");
         StringBuilder palavras = new StringBuilder();
         for (String separarCaractere : separarCaracteres) {
