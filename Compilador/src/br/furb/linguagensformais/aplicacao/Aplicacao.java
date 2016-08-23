@@ -21,7 +21,7 @@ public class Aplicacao extends javax.swing.JFrame {
      */
     public Aplicacao() {
         initComponents();
-        JTA_Editor_Palavras.setLineWrap(true);
+        this.JTA_Editor_Palavras.setBorder(new NumberedBorder());
     }
 
     /**
@@ -39,6 +39,9 @@ public class Aplicacao extends javax.swing.JFrame {
         JB_Limpar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         JTA_Editor_Palavras.setColumns(20);
         JTA_Editor_Palavras.setRows(5);
@@ -143,25 +146,33 @@ public class Aplicacao extends javax.swing.JFrame {
     }
     
     public List<Palavra> getPalavras(String text){
-        Palavra palavra = null;
         List<Palavra> lstPalavra = new ArrayList<>();
         
         String[] linha = text.split("\\n");
         for (int numeroLinha = 0; numeroLinha < linha.length; numeroLinha++) {
             String palavraFormatada = linha[numeroLinha].replace(" ", "\n").replace("\t", "\n");
-            String[] palavras = palavraFormatada.split("\\n");
-            for (int p = 0; p < palavras.length; p++) {
-                if (!palavras[p].equals("")){
-                    palavra = new Palavra();
-                    palavra.setSequencia(palavras[p]);
-                    palavra.setLinha(numeroLinha + 1);
-                    palavra.setResultado(this.palavraValida(palavra));
-                    lstPalavra.add(palavra);
+            String[] sequencias = palavraFormatada.split("\\n");
+            for (int p = 0; p < sequencias.length; p++) {
+                if (this.contemSimboloEspecial(sequencias[p])){
+                    String[] simbolosPalavras = this.obterSimbolos(sequencias[p]);
+                    for (int i = 0; i < simbolosPalavras.length; i++) {
+                        lstPalavra.add(this.criarPalavra(simbolosPalavras[i], numeroLinha + 1));
+                    }
+                } else if (!sequencias[p].equals("")){
+                    lstPalavra.add(this.criarPalavra(sequencias[p], numeroLinha + 1));
                 }
             }
             
         }
         return lstPalavra;
+    }
+    
+    private Palavra criarPalavra(String sequencia, int numeroLinha){
+        Palavra palavra = new Palavra();
+        palavra.setSequencia(sequencia);
+        palavra.setLinha(numeroLinha + 1);
+        palavra.setResultado(this.palavraValida(palavra));
+        return palavra;
     }
     
     private EnumValido palavraValida(Palavra palavra) {
@@ -177,5 +188,24 @@ public class Aplicacao extends javax.swing.JFrame {
 
     private boolean testarPalavra() {
         return false;
+    }
+
+    private boolean contemSimboloEspecial(String palavra) {
+        return palavra.contains(";") || palavra.contains(".") 
+                || palavra.contains(",");
+    }
+    
+    private String[] obterSimbolos(String sequencia){
+        String[] separarCaracteres = sequencia.split("");
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < separarCaracteres.length; i++) {
+            if(!separarCaracteres[i].equals(";") && !separarCaracteres[i].equals(".") 
+                    && !separarCaracteres[i].equals(",")){
+                s.append(separarCaracteres[i]);
+            } else {
+                s.append("\n" + separarCaracteres[i]);
+            }
+        }
+        return s.toString().split("\n");
     }
 }
