@@ -7,8 +7,6 @@ package br.furb.linguagensformais.aplicacao;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.control.ScrollBar;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -115,22 +113,16 @@ public class Aplicacao extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Aplicacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Aplicacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Aplicacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Aplicacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Aplicacao().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Aplicacao().setVisible(true);
         });
     }
 
@@ -142,7 +134,7 @@ public class Aplicacao extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void analisar() {
-        List<Palavra> lstPalavra = this.getPalavras(this.JTA_Editor_Palavras.getText().toString());
+        List<Palavra> lstPalavra = this.getPalavras(this.JTA_Editor_Palavras.getText());
     }
     
     public List<Palavra> getPalavras(String text){
@@ -152,14 +144,14 @@ public class Aplicacao extends javax.swing.JFrame {
         for (int numeroLinha = 0; numeroLinha < linha.length; numeroLinha++) {
             String palavraFormatada = linha[numeroLinha].replace(" ", "\n").replace("\t", "\n");
             String[] sequencias = palavraFormatada.split("\\n");
-            for (int p = 0; p < sequencias.length; p++) {
-                if (this.contemSimboloEspecial(sequencias[p])){
-                    String[] simbolosPalavras = this.obterSimbolos(sequencias[p]);
-                    for (int i = 0; i < simbolosPalavras.length; i++) {
-                        lstPalavra.add(this.criarPalavra(simbolosPalavras[i], numeroLinha + 1));
+            for (String sequencia : sequencias) {
+                if (this.simboloEspecial(sequencia)) {
+                    String[] simbolosPalavras = this.obterSimbolos(sequencia);
+                    for (String simbolosPalavra : simbolosPalavras) {
+                        lstPalavra.add(this.criarPalavra(simbolosPalavra, numeroLinha + 1));
                     }
-                } else if (!sequencias[p].equals("")){
-                    lstPalavra.add(this.criarPalavra(sequencias[p], numeroLinha + 1));
+                } else if (!sequencia.equals("")) {
+                    lstPalavra.add(this.criarPalavra(sequencia, numeroLinha + 1));
                 }
             }
             
@@ -176,9 +168,7 @@ public class Aplicacao extends javax.swing.JFrame {
     }
     
     private EnumValido palavraValida(Palavra palavra) {
-        if(palavra.getSequencia().equals(";")
-                || palavra.getSequencia().equals(",")
-                || palavra.getSequencia().equals(".")) {
+        if(this.simboloEspecial(palavra.getSequencia())) {
             return EnumValido.SIMBOLO_ESPECIAL;
         } else if (this.testarPalavra()){
             
@@ -190,7 +180,7 @@ public class Aplicacao extends javax.swing.JFrame {
         return false;
     }
 
-    private boolean contemSimboloEspecial(String palavra) {
+    private boolean simboloEspecial(String palavra) {
         return palavra.contains(";") || palavra.contains(".") 
                 || palavra.contains(",");
     }
