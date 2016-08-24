@@ -13,7 +13,8 @@ import java.util.List;
  * @author Flávio e Carol
  */
 public class Aplicacao extends javax.swing.JFrame {
-
+    StringBuilder caminho = new StringBuilder();
+    
     /**
      * Creates new form Aplicacao
      */
@@ -164,6 +165,8 @@ public class Aplicacao extends javax.swing.JFrame {
         palavra.setSequencia(sequencia);
         palavra.setLinha(numeroLinha + 1);
         palavra.setResultado(this.sequenciaValida(palavra));
+        palavra.setReconhecimento(this.caminho.toString());
+        this.caminho = new StringBuilder();
         return palavra;
     }
     
@@ -171,18 +174,92 @@ public class Aplicacao extends javax.swing.JFrame {
         String sequencia = palavra.getSequencia();
         if(this.simboloEspecial(sequencia)) {
             return EnumResultado.SIMBOLO_ESPECIAL;
-        } else if (this.testarSequencia(sequencia)){
+        } else if (this.sequenciaValida(sequencia)){
             
         }
         return null;
     }
 
-    private boolean testarSequencia(String sequencia) {
-        String[] caractere = sequencia.split("");
-//        for (int i = 0; i < caractere.length; i++) {
-//            if ()
-//        }
-        return false;
+    public boolean sequenciaValida(String seq){
+        String rotulo = EnumRotuloReconhecimento.Q0.getRotulo();
+        for (int i = 0; i < seq.length(); i++) {
+            char caractere = seq.charAt(i);
+            if (caractere == 'a' || caractere == 'b' || caractere == 'c'){
+                if (rotulo.equals(EnumRotuloReconhecimento.Q0.getRotulo())){
+                    caminho.append(rotulo);
+                    if (caractere == 'a'){
+                        rotulo = EnumRotuloReconhecimento.Q1_Q5.getRotulo();
+                    } else if (caractere == 'b' || caractere == 'c'){
+                        rotulo = EnumRotuloReconhecimento.Q7.getRotulo();
+                    }
+                } else if (rotulo.equals(EnumRotuloReconhecimento.Q1_Q5.getRotulo())){
+                    caminho.append(", ").append(rotulo);
+                    if (caractere == 'a'){
+                        rotulo = EnumRotuloReconhecimento.Q1_Q6.getRotulo();
+                    } else if (caractere == 'b'){
+                        rotulo = EnumRotuloReconhecimento.Q2.getRotulo();
+                    } else {
+                        return false;
+                    }
+                } else if (rotulo.equals(EnumRotuloReconhecimento.Q7.getRotulo())){
+                    caminho.append(", ").append(rotulo);
+                    if (caractere == 'b' || caractere == 'c'){
+                        rotulo = EnumRotuloReconhecimento.Q8.getRotulo();
+                    } else {
+                        return false;
+                    }
+                } else if (rotulo.equals(EnumRotuloReconhecimento.Q1_Q6.getRotulo())){
+                    caminho.append(", ").append(rotulo);
+                    if (caractere == 'a'){
+                        rotulo = EnumRotuloReconhecimento.Q1_Q5.getRotulo();
+                    } else if (caractere == 'b'){
+                        rotulo = EnumRotuloReconhecimento.Q2_Q7.getRotulo();
+                    } else {
+                        rotulo = EnumRotuloReconhecimento.Q7.getRotulo();
+                    }
+                } else if (rotulo.equals(EnumRotuloReconhecimento.Q2.getRotulo())) {
+                    caminho.append(", ").append(rotulo);
+                    if (caractere == 'a'){
+                        rotulo = EnumRotuloReconhecimento.Q3.getRotulo();
+                    } else {
+                        return false;
+                    }
+                } else if (rotulo.equals(EnumRotuloReconhecimento.Q8.getRotulo())) {
+                    caminho.append(", ").append(rotulo);
+                    if (caractere == 'b' || caractere == 'c'){
+                        rotulo = EnumRotuloReconhecimento.Q7.getRotulo();
+                    } else {
+                        return false;
+                    }
+                } else if (rotulo.equals(EnumRotuloReconhecimento.Q2_Q7.getRotulo())) {
+                    caminho.append(", ").append(rotulo);
+                    if (caractere == 'a'){
+                        rotulo = EnumRotuloReconhecimento.Q3.getRotulo();
+                    } else if (caractere == 'b' || caractere == 'c'){
+                        rotulo = EnumRotuloReconhecimento.Q8.getRotulo();
+                    } 
+                } else if (rotulo.equals(EnumRotuloReconhecimento.Q3.getRotulo())) {
+                    caminho.append(", ").append(rotulo);
+                    if (caractere == 'a'){
+                        rotulo = EnumRotuloReconhecimento.Q4.getRotulo();
+                    } else if (caractere == 'b'){
+                        rotulo = EnumRotuloReconhecimento.Q2.getRotulo();
+                    } else {
+                        return false;
+                    }
+                } else if (rotulo.equals(EnumRotuloReconhecimento.Q4.getRotulo())) {
+                    caminho.append(", ").append(rotulo);
+                    if (caractere == 'a'){
+                        rotulo = EnumRotuloReconhecimento.Q3.getRotulo();
+                    } else {
+                        return false;
+                    } 
+                }
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 
     private boolean simboloEspecial(String palavra) {

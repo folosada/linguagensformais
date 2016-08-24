@@ -13,6 +13,7 @@ public class Palavra {
     
     private String sequencia;
     private EnumResultado resultado;
+    private String reconhecimento;
     private int linha;
 
     public Palavra(){}
@@ -39,5 +40,13 @@ public class Palavra {
 
     public void setLinha(int linha) {
         this.linha = linha;
+    }
+
+    public String getReconhecimento() {
+        return reconhecimento;
+    }
+
+    public void setReconhecimento(String reconhecimento) {
+        this.reconhecimento = reconhecimento;
     }
 }

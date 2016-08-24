@@ -16,13 +16,13 @@ public enum EnumResultado {
     SIMBOLO_INVALIDA("Erro: Símbolo Inválida"),
     SIMBOLO_ESPECIAL("Símbolo Especial");
     
-    private String valor;
+    private String resultado;
 
-    EnumResultado(String valor) {
-        this.valor = valor;
+    EnumResultado(String resultado) {
+        this.resultado = resultado;
     }
     
-    public String getValor(){
-        return this.valor;
+    public String getResultado(){
+        return this.resultado;
     }
 }
