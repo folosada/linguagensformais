@@ -13,16 +13,16 @@ public enum EnumResultado {
     
     PALAVRA_VALIDA("Palavra Válida"),
     PALAVRA_INVALIDA("Erro: Palavra Inválida"),
-    SIMBOLO_INVALIDA("Erro: Símbolo Inválida"),
+    SIMBOLO_INVALIDO("Erro: Símbolo Inválida"),
     SIMBOLO_ESPECIAL("Símbolo Especial");
     
-    private String resultado;
+    private String valor;
 
-    EnumResultado(String resultado) {
-        this.resultado = resultado;
+    EnumResultado(String valor) {
+        this.valor = valor;
     }
     
-    public String getResultado(){
-        return this.resultado;
+    public String getValor(){
+        return this.valor;
     }
 }

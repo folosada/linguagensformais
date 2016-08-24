@@ -7,6 +7,7 @@ package br.furb.linguagensformais.aplicacao;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,6 +15,10 @@ import java.util.List;
  */
 public class Aplicacao extends javax.swing.JFrame {
     StringBuilder caminho = new StringBuilder();
+    List<String> caracteresEspecificos = new ArrayList<>(20);
+    DefaultTableModel model;
+    String[] limparModel;
+    List<Palavra> lstPalavra = null;
     
     /**
      * Creates new form Aplicacao
@@ -21,6 +26,10 @@ public class Aplicacao extends javax.swing.JFrame {
     public Aplicacao() {
         initComponents();
         this.JTA_Editor_Palavras.setBorder(new NumberedBorder());
+        this.setCaracteresEspecificos();
+        this.model = (DefaultTableModel) this.JTable_Valores.getModel();
+        this.limparModel = new String[4];
+        this.lstPalavra = new ArrayList<>();
     }
 
     /**
@@ -36,6 +45,8 @@ public class Aplicacao extends javax.swing.JFrame {
         JTA_Editor_Palavras = new javax.swing.JTextArea();
         JB_Analisar = new javax.swing.JButton();
         JB_Limpar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        JTable_Valores = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,6 +71,22 @@ public class Aplicacao extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        JTable_Valores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(JTable_Valores);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -72,7 +99,8 @@ public class Aplicacao extends javax.swing.JFrame {
                         .addComponent(JB_Analisar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JB_Limpar)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -84,7 +112,9 @@ public class Aplicacao extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB_Analisar)
                     .addComponent(JB_Limpar))
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(440, 440, 440))
         );
 
         pack();
@@ -96,6 +126,9 @@ public class Aplicacao extends javax.swing.JFrame {
 
     private void JB_LimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_LimparActionPerformed
         this.JTA_Editor_Palavras.setText("");
+        model.getDataVector().setSize(0);
+        for (int i = 0; i < 9; i++)
+            model.addRow(limparModel);
     }//GEN-LAST:event_JB_LimparActionPerformed
 
     /**
@@ -131,11 +164,33 @@ public class Aplicacao extends javax.swing.JFrame {
     private javax.swing.JButton JB_Analisar;
     private javax.swing.JButton JB_Limpar;
     private javax.swing.JTextArea JTA_Editor_Palavras;
+    private javax.swing.JTable JTable_Valores;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 
     private void analisar() {
-        List<Palavra> lstPalavra = this.getPalavras(this.JTA_Editor_Palavras.getText());
+        lstPalavra = this.getPalavras(this.JTA_Editor_Palavras.getText());
+        this.teste();
+    }
+    
+    private void teste() {
+        model.getDataVector().setSize(0);
+        
+        int cont = 0;
+        for(Palavra p : this.lstPalavra){
+            Object[] row = new Object[4];
+            row[0] = p.getLinha();
+            row[1] = p.getResultado().getValor();
+            row[2] = p.getSequencia();
+            row[3] = p.getReconhecimento();
+            model.addRow(row);
+            cont++;
+        }
+        
+        for (; cont < 9; cont++) {
+            model.addRow(this.limparModel);
+        }
     }
     
     public List<Palavra> getPalavras(String text){
@@ -149,10 +204,10 @@ public class Aplicacao extends javax.swing.JFrame {
                 if (this.simboloEspecial(sequencia)) {
                     String[] simbolosPalavras = this.obterSequenciaEspecial(sequencia);
                     for (String simbolosPalavra : simbolosPalavras) {
-                        lstPalavra.add(this.criarPalavra(simbolosPalavra, numeroLinha + 1));
+                        lstPalavra.add(this.criarPalavra(simbolosPalavra, numeroLinha));
                     }
                 } else if (!sequencia.equals("")) {
-                    lstPalavra.add(this.criarPalavra(sequencia, numeroLinha + 1));
+                    lstPalavra.add(this.criarPalavra(sequencia, numeroLinha));
                 }
             }
             
@@ -174,39 +229,38 @@ public class Aplicacao extends javax.swing.JFrame {
         String sequencia = palavra.getSequencia();
         if(this.simboloEspecial(sequencia)) {
             return EnumResultado.SIMBOLO_ESPECIAL;
-        } else if (this.sequenciaValida(sequencia)){
-            
+        } else {
+            return this.sequenciaValida(sequencia);
         }
-        return null;
     }
 
-    public boolean sequenciaValida(String seq){
+    /**
+     * Feito para Teste, não vai ser feito assim
+     * @param seq
+     * @return 
+     */
+    public EnumResultado sequenciaValida(String seq){
         String rotulo = EnumRotuloReconhecimento.Q0.getRotulo();
         for (int i = 0; i < seq.length(); i++) {
             char caractere = seq.charAt(i);
             if (caractere == 'a' || caractere == 'b' || caractere == 'c'){
-                if (rotulo.equals(EnumRotuloReconhecimento.Q0.getRotulo())){
-                    caminho.append(rotulo);
-                    if (caractere == 'a'){
-                        rotulo = EnumRotuloReconhecimento.Q1_Q5.getRotulo();
-                    } else if (caractere == 'b' || caractere == 'c'){
-                        rotulo = EnumRotuloReconhecimento.Q7.getRotulo();
-                    }
-                } else if (rotulo.equals(EnumRotuloReconhecimento.Q1_Q5.getRotulo())){
+                if (rotulo.equals(EnumRotuloReconhecimento.Q1_Q5.getRotulo())){
                     caminho.append(", ").append(rotulo);
                     if (caractere == 'a'){
                         rotulo = EnumRotuloReconhecimento.Q1_Q6.getRotulo();
                     } else if (caractere == 'b'){
                         rotulo = EnumRotuloReconhecimento.Q2.getRotulo();
                     } else {
-                        return false;
+                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
+                        return EnumResultado.PALAVRA_INVALIDA;
                     }
                 } else if (rotulo.equals(EnumRotuloReconhecimento.Q7.getRotulo())){
                     caminho.append(", ").append(rotulo);
                     if (caractere == 'b' || caractere == 'c'){
                         rotulo = EnumRotuloReconhecimento.Q8.getRotulo();
                     } else {
-                        return false;
+                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
+                        return EnumResultado.PALAVRA_INVALIDA;
                     }
                 } else if (rotulo.equals(EnumRotuloReconhecimento.Q1_Q6.getRotulo())){
                     caminho.append(", ").append(rotulo);
@@ -222,14 +276,16 @@ public class Aplicacao extends javax.swing.JFrame {
                     if (caractere == 'a'){
                         rotulo = EnumRotuloReconhecimento.Q3.getRotulo();
                     } else {
-                        return false;
+                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
+                        return EnumResultado.PALAVRA_INVALIDA;
                     }
                 } else if (rotulo.equals(EnumRotuloReconhecimento.Q8.getRotulo())) {
                     caminho.append(", ").append(rotulo);
                     if (caractere == 'b' || caractere == 'c'){
                         rotulo = EnumRotuloReconhecimento.Q7.getRotulo();
                     } else {
-                        return false;
+                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
+                        return EnumResultado.PALAVRA_INVALIDA;
                     }
                 } else if (rotulo.equals(EnumRotuloReconhecimento.Q2_Q7.getRotulo())) {
                     caminho.append(", ").append(rotulo);
@@ -245,21 +301,31 @@ public class Aplicacao extends javax.swing.JFrame {
                     } else if (caractere == 'b'){
                         rotulo = EnumRotuloReconhecimento.Q2.getRotulo();
                     } else {
-                        return false;
+                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
+                        return EnumResultado.PALAVRA_INVALIDA;
                     }
                 } else if (rotulo.equals(EnumRotuloReconhecimento.Q4.getRotulo())) {
                     caminho.append(", ").append(rotulo);
                     if (caractere == 'a'){
                         rotulo = EnumRotuloReconhecimento.Q3.getRotulo();
                     } else {
-                        return false;
+                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
+                        return EnumResultado.PALAVRA_INVALIDA;
                     } 
                 }
             } else {
-                return false;
+                caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
+                for (int j = 0; j < seq.length(); j++) {
+                    char palavraEspecial = seq.charAt(j);
+                    if (this.caracteresEspecificos.contains(palavraEspecial)){
+                        return EnumResultado.PALAVRA_VALIDA;
+                    }
+                }
+                return EnumResultado.SIMBOLO_ESPECIAL;
             }
         }
-        return true;
+        this.caminho.append(", ").append(rotulo);
+        return EnumResultado.PALAVRA_INVALIDA;
     }
 
     private boolean simboloEspecial(String palavra) {
@@ -278,5 +344,10 @@ public class Aplicacao extends javax.swing.JFrame {
             }
         }
         return palavras.toString().split("\n");
+    }
+    
+    public void setCaracteresEspecificos() {
+        this.caracteresEspecificos.add("\'");
+        this.caracteresEspecificos.add("\"");
     }
 }
