@@ -21,12 +21,17 @@ public class Automato {
     public void q0(String seq, int index){
         this.reconhecimento.append(EnumRotuloReconhecimento.Q0.getRotulo());
         char caracter = seq.charAt(index);
-        if (caracter == 'a'){
-            this.q1q5(seq, index);
-        } else if (caracter == 'b' || caracter == 'c'){
-            this.q7(seq, index);
+        
+        if (!this.isCaracterEspecifico(caracter) && !this.fimSequencia(seq, index)){
+            if (caracter == 'a'){
+                this.q1q5(seq, index);
+            } else if (caracter == 'b' || caracter == 'c'){
+                this.q7(seq, index);
+            } else {
+                this.sequenciaInvalida(caracter);
+            }
         } else {
-            this.sequenciaInvalida(caracter);
+            this.resultado = EnumResultado.SIMBOLO_ESPECIAL.getValor();
         }
     }
 

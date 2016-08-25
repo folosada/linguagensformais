@@ -7,6 +7,7 @@ package br.furb.linguagensformais.aplicacao;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -57,11 +58,15 @@ public class Aplicacao extends javax.swing.JFrame {
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(23, 187));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(183, 187));
 
         JTA_Editor_Palavras.setColumns(20);
         JTA_Editor_Palavras.setRows(8);
+        JTA_Editor_Palavras.setPreferredSize(new java.awt.Dimension(864, 187));
         jScrollPane1.setViewportView(JTA_Editor_Palavras);
 
+        JB_Analisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/linguagensformais/aplicacao/imagens/forward.png"))); // NOI18N
         JB_Analisar.setText("Analisar");
         JB_Analisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,6 +74,7 @@ public class Aplicacao extends javax.swing.JFrame {
             }
         });
 
+        JB_Limpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/linguagensformais/aplicacao/imagens/editcut.png"))); // NOI18N
         JB_Limpar.setText("Limpar");
         JB_Limpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,6 +84,7 @@ public class Aplicacao extends javax.swing.JFrame {
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setMinimumSize(new java.awt.Dimension(23, 173));
 
         JTable_Valores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -94,6 +101,7 @@ public class Aplicacao extends javax.swing.JFrame {
         JTable_Valores.setMinimumSize(new java.awt.Dimension(0, 128));
         jScrollPane2.setViewportView(JTable_Valores);
 
+        JB_Equipe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/linguagensformais/aplicacao/imagens/system-users.png"))); // NOI18N
         JB_Equipe.setText("Equipe");
         JB_Equipe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,27 +113,26 @@ public class Aplicacao extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(JB_Analisar, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JB_Limpar, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JB_Equipe, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JB_Analisar)
-                    .addComponent(JB_Limpar)
-                    .addComponent(JB_Equipe))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JB_Equipe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(JB_Limpar, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                    .addComponent(JB_Analisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -141,7 +148,7 @@ public class Aplicacao extends javax.swing.JFrame {
     }//GEN-LAST:event_JB_LimparActionPerformed
 
     private void JB_EquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_EquipeActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Aluno: Gabriel");
     }//GEN-LAST:event_JB_EquipeActionPerformed
 
     /**
@@ -155,7 +162,7 @@ public class Aplicacao extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Errado".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -193,6 +200,10 @@ public class Aplicacao extends javax.swing.JFrame {
     }
     
     private void analisar() {
+        this.model.getDataVector().setSize(0);
+        for (int linha = 0; linha < 8; linha++) {
+            model.addRow(this.limparModel);
+        }
         this.getPalavras(this.JTA_Editor_Palavras.getText());
         this.popularJTable();
     }
@@ -225,7 +236,9 @@ public class Aplicacao extends javax.swing.JFrame {
                 if (this.simboloEspecial(sequencia)) {
                     String[] simbolosPalavras = this.obterSequenciaEspecial(sequencia);
                     for (String simbolosPalavra : simbolosPalavras) {
-                        this.lstPalavra.add(this.criarPalavra(simbolosPalavra, numeroLinha));
+                        if (!simbolosPalavra.isEmpty()){
+                            this.lstPalavra.add(this.criarPalavra(simbolosPalavra, numeroLinha));
+                        }
                     }
                 } else if (!sequencia.equals("")) {
                     this.lstPalavra.add(this.criarPalavra(sequencia, numeroLinha));
@@ -236,10 +249,9 @@ public class Aplicacao extends javax.swing.JFrame {
     
     private Palavra criarPalavra(String sequencia, int numeroLinha){
         Palavra palavra = new Palavra();
-        if (!sequencia.isEmpty()){
-            this.automato = new Automato();
-            this.automato.q0(sequencia, 0);
-        }
+        this.automato = new Automato();
+        this.automato.q0(sequencia, 0);
+        
         palavra.setSequencia(sequencia);
         palavra.setLinha(numeroLinha + 1);
         palavra.setResultado(this.automato.getResultado());

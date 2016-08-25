@@ -31,7 +31,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="JB_Equipe" pref="284" max="32767" attributes="0"/>
           </Group>
-          <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
+          <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -39,14 +39,13 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="jScrollPane1" min="-2" pref="188" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="JB_Analisar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="JB_Limpar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="JB_Equipe" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="JB_Equipe" max="32767" attributes="0"/>
+                  <Component id="JB_Limpar" pref="39" max="32767" attributes="0"/>
+                  <Component id="JB_Analisar" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="171" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -56,6 +55,12 @@
       <Properties>
         <Property name="horizontalScrollBarPolicy" type="int" value="32"/>
         <Property name="verticalScrollBarPolicy" type="int" value="22"/>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[23, 187]"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[183, 187]"/>
+        </Property>
       </Properties>
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -67,12 +72,18 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="8"/>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[864, 187]"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JButton" name="JB_Analisar">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/br/furb/linguagensformais/aplicacao/imagens/forward.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Analisar"/>
       </Properties>
       <Events>
@@ -81,6 +92,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="JB_Limpar">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/br/furb/linguagensformais/aplicacao/imagens/editcut.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Limpar"/>
       </Properties>
       <Events>
@@ -91,6 +105,9 @@
       <Properties>
         <Property name="horizontalScrollBarPolicy" type="int" value="32"/>
         <Property name="verticalScrollBarPolicy" type="int" value="22"/>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[23, 173]"/>
+        </Property>
       </Properties>
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -117,6 +134,9 @@
     </Container>
     <Component class="javax.swing.JButton" name="JB_Equipe">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/br/furb/linguagensformais/aplicacao/imagens/system-users.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Equipe"/>
       </Properties>
       <Events>
