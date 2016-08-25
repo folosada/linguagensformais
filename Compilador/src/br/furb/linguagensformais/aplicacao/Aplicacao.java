@@ -30,6 +30,10 @@ public class Aplicacao extends javax.swing.JFrame {
         this.model = (DefaultTableModel) this.JTable_Valores.getModel();
         this.limparModel = new String[4];
         this.lstPalavra = new ArrayList<>();
+        this.model.getDataVector().setSize(0);
+        for (int linha = 0; linha < 8; linha++) {
+            model.addRow(this.limparModel);
+        }
     }
 
     /**
@@ -47,6 +51,7 @@ public class Aplicacao extends javax.swing.JFrame {
         JB_Limpar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         JTable_Valores = new javax.swing.JTable();
+        JB_Equipe = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,7 +59,7 @@ public class Aplicacao extends javax.swing.JFrame {
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         JTA_Editor_Palavras.setColumns(20);
-        JTA_Editor_Palavras.setRows(5);
+        JTA_Editor_Palavras.setRows(8);
         jScrollPane1.setViewportView(JTA_Editor_Palavras);
 
         JB_Analisar.setText("Analisar");
@@ -79,42 +84,48 @@ public class Aplicacao extends javax.swing.JFrame {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Linha", "Resultado", "Sequência", "Reconhecimento"
             }
         ));
+        JTable_Valores.setMinimumSize(new java.awt.Dimension(0, 128));
         jScrollPane2.setViewportView(JTable_Valores);
+
+        JB_Equipe.setText("Equipe");
+        JB_Equipe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB_EquipeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 844, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(JB_Analisar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JB_Limpar)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
-                .addContainerGap())
+                .addComponent(JB_Analisar, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(JB_Limpar, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(JB_Equipe, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JB_Analisar)
-                    .addComponent(JB_Limpar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(440, 440, 440))
+                    .addComponent(JB_Limpar)
+                    .addComponent(JB_Equipe))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -127,10 +138,11 @@ public class Aplicacao extends javax.swing.JFrame {
 
     private void JB_LimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_LimparActionPerformed
         this.limparCampos();
-//        model.getDataVector().setSize(0);
-//        for (int i = 0; i < 9; i++)
-//            model.addRow(limparModel);
     }//GEN-LAST:event_JB_LimparActionPerformed
+
+    private void JB_EquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_EquipeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JB_EquipeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,6 +175,7 @@ public class Aplicacao extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JB_Analisar;
+    private javax.swing.JButton JB_Equipe;
     private javax.swing.JButton JB_Limpar;
     private javax.swing.JTextArea JTA_Editor_Palavras;
     private javax.swing.JTable JTable_Valores;
@@ -172,7 +185,11 @@ public class Aplicacao extends javax.swing.JFrame {
 
     private void limparCampos() {
         this.JTA_Editor_Palavras.setText("");
-        this.automato = new Automato();
+        this.lstPalavra = new ArrayList<>();
+        this.model.getDataVector().setSize(0);
+        for (int linha = 0; linha < 8; linha++) {
+            model.addRow(this.limparModel);
+        }
     }
     
     private void analisar() {
@@ -181,9 +198,9 @@ public class Aplicacao extends javax.swing.JFrame {
     }
     
     private void popularJTable() {
-        model.getDataVector().setSize(0);
+        this.model.getDataVector().setSize(0);
         
-        int cont = 0;
+        int controleLinhasEmBranco = 0;
         for(Palavra p : this.lstPalavra){
             Object[] row = new Object[4];
             row[0] = p.getLinha();
@@ -191,15 +208,15 @@ public class Aplicacao extends javax.swing.JFrame {
             row[2] = p.getSequencia();
             row[3] = p.getReconhecimento();
             model.addRow(row);
-            cont++;
+            controleLinhasEmBranco++;
         }
-        
-        for (; cont < 9; cont++) {
+        for (; controleLinhasEmBranco < 8; controleLinhasEmBranco++) {
             model.addRow(this.limparModel);
         }
     }
     
     public void getPalavras(String text){
+        this.lstPalavra = new ArrayList<>();
         String[] linha = text.split("\\n");
         for (int numeroLinha = 0; numeroLinha < linha.length; numeroLinha++) {
             String palavraFormatada = linha[numeroLinha].replace(" ", "\n").replace("\t", "\n");
@@ -228,100 +245,6 @@ public class Aplicacao extends javax.swing.JFrame {
         palavra.setResultado(this.automato.getResultado());
         palavra.setReconhecimento(this.automato.getReconhecimento().toString());
         return palavra;
-    }
-
-    /**
-     * Feito para Teste, não vai ser feito assim
-     * @param seq
-     * @return 
-     */
-    public EnumResultado sequenciaValida(String seq){
-//        String rotulo = EnumRotuloReconhecimento.Q0.getRotulo();
-//        for (int i = 0; i < seq.length(); i++) {
-//            char caractere = seq.charAt(i);
-//            if (caractere == 'a' || caractere == 'b' || caractere == 'c'){
-//                if (rotulo.equals(EnumRotuloReconhecimento.Q1_Q5.getRotulo())){
-//                    caminho.append(", ").append(rotulo);
-//                    if (caractere == 'a'){
-//                        rotulo = EnumRotuloReconhecimento.Q1_Q6.getRotulo();
-//                    } else if (caractere == 'b'){
-//                        rotulo = EnumRotuloReconhecimento.Q2.getRotulo();
-//                    } else {
-//                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
-//                        return EnumResultado.PALAVRA_INVALIDA;
-//                    }
-//                } else if (rotulo.equals(EnumRotuloReconhecimento.Q7.getRotulo())){
-//                    caminho.append(", ").append(rotulo);
-//                    if (caractere == 'b' || caractere == 'c'){
-//                        rotulo = EnumRotuloReconhecimento.Q8.getRotulo();
-//                    } else {
-//                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
-//                        return EnumResultado.PALAVRA_INVALIDA;
-//                    }
-//                } else if (rotulo.equals(EnumRotuloReconhecimento.Q1_Q6.getRotulo())){
-//                    caminho.append(", ").append(rotulo);
-//                    if (caractere == 'a'){
-//                        rotulo = EnumRotuloReconhecimento.Q1_Q5.getRotulo();
-//                    } else if (caractere == 'b'){
-//                        rotulo = EnumRotuloReconhecimento.Q2_Q7.getRotulo();
-//                    } else {
-//                        rotulo = EnumRotuloReconhecimento.Q7.getRotulo();
-//                    }
-//                } else if (rotulo.equals(EnumRotuloReconhecimento.Q2.getRotulo())) {
-//                    caminho.append(", ").append(rotulo);
-//                    if (caractere == 'a'){
-//                        rotulo = EnumRotuloReconhecimento.Q3.getRotulo();
-//                    } else {
-//                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
-//                        return EnumResultado.PALAVRA_INVALIDA;
-//                    }
-//                } else if (rotulo.equals(EnumRotuloReconhecimento.Q8.getRotulo())) {
-//                    caminho.append(", ").append(rotulo);
-//                    if (caractere == 'b' || caractere == 'c'){
-//                        rotulo = EnumRotuloReconhecimento.Q7.getRotulo();
-//                    } else {
-//                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
-//                        return EnumResultado.PALAVRA_INVALIDA;
-//                    }
-//                } else if (rotulo.equals(EnumRotuloReconhecimento.Q2_Q7.getRotulo())) {
-//                    caminho.append(", ").append(rotulo);
-//                    if (caractere == 'a'){
-//                        rotulo = EnumRotuloReconhecimento.Q3.getRotulo();
-//                    } else if (caractere == 'b' || caractere == 'c'){
-//                        rotulo = EnumRotuloReconhecimento.Q8.getRotulo();
-//                    } 
-//                } else if (rotulo.equals(EnumRotuloReconhecimento.Q3.getRotulo())) {
-//                    caminho.append(", ").append(rotulo);
-//                    if (caractere == 'a'){
-//                        rotulo = EnumRotuloReconhecimento.Q4.getRotulo();
-//                    } else if (caractere == 'b'){
-//                        rotulo = EnumRotuloReconhecimento.Q2.getRotulo();
-//                    } else {
-//                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
-//                        return EnumResultado.PALAVRA_INVALIDA;
-//                    }
-//                } else if (rotulo.equals(EnumRotuloReconhecimento.Q4.getRotulo())) {
-//                    caminho.append(", ").append(rotulo);
-//                    if (caractere == 'a'){
-//                        rotulo = EnumRotuloReconhecimento.Q3.getRotulo();
-//                    } else {
-//                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
-//                        return EnumResultado.PALAVRA_INVALIDA;
-//                    } 
-//                }
-//            } else {
-//                caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
-//                for (int j = 0; j < seq.length(); j++) {
-//                    char palavraEspecial = seq.charAt(j);
-//                    if (this.caracteresEspecificos.contains(palavraEspecial)){
-//                        return EnumResultado.PALAVRA_VALIDA;
-//                    }
-//                }
-//                return EnumResultado.SIMBOLO_ESPECIAL;
-//            }
-//        }
-//        this.caminho.append(", ").append(rotulo);
-        return EnumResultado.PALAVRA_INVALIDA;
     }
 
     private boolean simboloEspecial(String palavra) {
