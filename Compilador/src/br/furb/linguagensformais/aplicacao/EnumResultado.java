@@ -13,7 +13,7 @@ public enum EnumResultado {
     
     PALAVRA_VALIDA("Palavra Válida"),
     PALAVRA_INVALIDA("Erro: Palavra Inválida"),
-    SIMBOLO_INVALIDO("Erro: Símbolo Inválida"),
+    SIMBOLO_INVALIDO("Erro: Símbolo Inválido"),
     SIMBOLO_ESPECIAL("Símbolo Especial");
     
     private String valor;

@@ -12,7 +12,7 @@ package br.furb.linguagensformais.aplicacao;
 public class Palavra {
     
     private String sequencia;
-    private EnumResultado resultado;
+    private String resultado;
     private String reconhecimento;
     private int linha;
 
@@ -26,11 +26,11 @@ public class Palavra {
         this.sequencia = sequencia;
     }
 
-    public EnumResultado getResultado() {
+    public String getResultado() {
         return resultado;
     }
 
-    public void setResultado(EnumResultado resultado) {
+    public void setResultado(String resultado) {
         this.resultado = resultado;
     }
 

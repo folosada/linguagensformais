@@ -14,19 +14,19 @@ import javax.swing.table.DefaultTableModel;
  * @author Flávio e Carol
  */
 public class Aplicacao extends javax.swing.JFrame {
-    StringBuilder caminho = new StringBuilder();
-    List<String> caracteresEspecificos = new ArrayList<>(20);
-    DefaultTableModel model;
-    String[] limparModel;
-    List<Palavra> lstPalavra = null;
+    private List<Palavra> lstPalavra = null;
+    private DefaultTableModel model;
+    private String[] limparModel;
+    private Automato automato;
     
     /**
      * Creates new form Aplicacao
      */
     public Aplicacao() {
         initComponents();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
         this.JTA_Editor_Palavras.setBorder(new NumberedBorder());
-        this.setCaracteresEspecificos();
         this.model = (DefaultTableModel) this.JTable_Valores.getModel();
         this.limparModel = new String[4];
         this.lstPalavra = new ArrayList<>();
@@ -121,14 +121,15 @@ public class Aplicacao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JB_AnalisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_AnalisarActionPerformed
+        this.lstPalavra = new ArrayList<>();
         this.analisar();
     }//GEN-LAST:event_JB_AnalisarActionPerformed
 
     private void JB_LimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_LimparActionPerformed
-        this.JTA_Editor_Palavras.setText("");
-        model.getDataVector().setSize(0);
-        for (int i = 0; i < 9; i++)
-            model.addRow(limparModel);
+        this.limparCampos();
+//        model.getDataVector().setSize(0);
+//        for (int i = 0; i < 9; i++)
+//            model.addRow(limparModel);
     }//GEN-LAST:event_JB_LimparActionPerformed
 
     /**
@@ -153,7 +154,7 @@ public class Aplicacao extends javax.swing.JFrame {
         //</editor-fold>
         
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new Aplicacao().setVisible(true);
@@ -169,19 +170,24 @@ public class Aplicacao extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 
-    private void analisar() {
-        lstPalavra = this.getPalavras(this.JTA_Editor_Palavras.getText());
-        this.teste();
+    private void limparCampos() {
+        this.JTA_Editor_Palavras.setText("");
+        this.automato = new Automato();
     }
     
-    private void teste() {
+    private void analisar() {
+        this.getPalavras(this.JTA_Editor_Palavras.getText());
+        this.popularJTable();
+    }
+    
+    private void popularJTable() {
         model.getDataVector().setSize(0);
         
         int cont = 0;
         for(Palavra p : this.lstPalavra){
             Object[] row = new Object[4];
             row[0] = p.getLinha();
-            row[1] = p.getResultado().getValor();
+            row[1] = p.getResultado();
             row[2] = p.getSequencia();
             row[3] = p.getReconhecimento();
             model.addRow(row);
@@ -193,9 +199,7 @@ public class Aplicacao extends javax.swing.JFrame {
         }
     }
     
-    public List<Palavra> getPalavras(String text){
-        List<Palavra> lstPalavra = new ArrayList<>();
-        
+    public void getPalavras(String text){
         String[] linha = text.split("\\n");
         for (int numeroLinha = 0; numeroLinha < linha.length; numeroLinha++) {
             String palavraFormatada = linha[numeroLinha].replace(" ", "\n").replace("\t", "\n");
@@ -204,34 +208,26 @@ public class Aplicacao extends javax.swing.JFrame {
                 if (this.simboloEspecial(sequencia)) {
                     String[] simbolosPalavras = this.obterSequenciaEspecial(sequencia);
                     for (String simbolosPalavra : simbolosPalavras) {
-                        lstPalavra.add(this.criarPalavra(simbolosPalavra, numeroLinha));
+                        this.lstPalavra.add(this.criarPalavra(simbolosPalavra, numeroLinha));
                     }
                 } else if (!sequencia.equals("")) {
-                    lstPalavra.add(this.criarPalavra(sequencia, numeroLinha));
+                    this.lstPalavra.add(this.criarPalavra(sequencia, numeroLinha));
                 }
             }
-            
         }
-        return lstPalavra;
     }
     
     private Palavra criarPalavra(String sequencia, int numeroLinha){
         Palavra palavra = new Palavra();
+        if (!sequencia.isEmpty()){
+            this.automato = new Automato();
+            this.automato.q0(sequencia, 0);
+        }
         palavra.setSequencia(sequencia);
         palavra.setLinha(numeroLinha + 1);
-        palavra.setResultado(this.sequenciaValida(palavra));
-        palavra.setReconhecimento(this.caminho.toString());
-        this.caminho = new StringBuilder();
+        palavra.setResultado(this.automato.getResultado());
+        palavra.setReconhecimento(this.automato.getReconhecimento().toString());
         return palavra;
-    }
-    
-    private EnumResultado sequenciaValida(Palavra palavra) {
-        String sequencia = palavra.getSequencia();
-        if(this.simboloEspecial(sequencia)) {
-            return EnumResultado.SIMBOLO_ESPECIAL;
-        } else {
-            return this.sequenciaValida(sequencia);
-        }
     }
 
     /**
@@ -240,91 +236,91 @@ public class Aplicacao extends javax.swing.JFrame {
      * @return 
      */
     public EnumResultado sequenciaValida(String seq){
-        String rotulo = EnumRotuloReconhecimento.Q0.getRotulo();
-        for (int i = 0; i < seq.length(); i++) {
-            char caractere = seq.charAt(i);
-            if (caractere == 'a' || caractere == 'b' || caractere == 'c'){
-                if (rotulo.equals(EnumRotuloReconhecimento.Q1_Q5.getRotulo())){
-                    caminho.append(", ").append(rotulo);
-                    if (caractere == 'a'){
-                        rotulo = EnumRotuloReconhecimento.Q1_Q6.getRotulo();
-                    } else if (caractere == 'b'){
-                        rotulo = EnumRotuloReconhecimento.Q2.getRotulo();
-                    } else {
-                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
-                        return EnumResultado.PALAVRA_INVALIDA;
-                    }
-                } else if (rotulo.equals(EnumRotuloReconhecimento.Q7.getRotulo())){
-                    caminho.append(", ").append(rotulo);
-                    if (caractere == 'b' || caractere == 'c'){
-                        rotulo = EnumRotuloReconhecimento.Q8.getRotulo();
-                    } else {
-                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
-                        return EnumResultado.PALAVRA_INVALIDA;
-                    }
-                } else if (rotulo.equals(EnumRotuloReconhecimento.Q1_Q6.getRotulo())){
-                    caminho.append(", ").append(rotulo);
-                    if (caractere == 'a'){
-                        rotulo = EnumRotuloReconhecimento.Q1_Q5.getRotulo();
-                    } else if (caractere == 'b'){
-                        rotulo = EnumRotuloReconhecimento.Q2_Q7.getRotulo();
-                    } else {
-                        rotulo = EnumRotuloReconhecimento.Q7.getRotulo();
-                    }
-                } else if (rotulo.equals(EnumRotuloReconhecimento.Q2.getRotulo())) {
-                    caminho.append(", ").append(rotulo);
-                    if (caractere == 'a'){
-                        rotulo = EnumRotuloReconhecimento.Q3.getRotulo();
-                    } else {
-                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
-                        return EnumResultado.PALAVRA_INVALIDA;
-                    }
-                } else if (rotulo.equals(EnumRotuloReconhecimento.Q8.getRotulo())) {
-                    caminho.append(", ").append(rotulo);
-                    if (caractere == 'b' || caractere == 'c'){
-                        rotulo = EnumRotuloReconhecimento.Q7.getRotulo();
-                    } else {
-                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
-                        return EnumResultado.PALAVRA_INVALIDA;
-                    }
-                } else if (rotulo.equals(EnumRotuloReconhecimento.Q2_Q7.getRotulo())) {
-                    caminho.append(", ").append(rotulo);
-                    if (caractere == 'a'){
-                        rotulo = EnumRotuloReconhecimento.Q3.getRotulo();
-                    } else if (caractere == 'b' || caractere == 'c'){
-                        rotulo = EnumRotuloReconhecimento.Q8.getRotulo();
-                    } 
-                } else if (rotulo.equals(EnumRotuloReconhecimento.Q3.getRotulo())) {
-                    caminho.append(", ").append(rotulo);
-                    if (caractere == 'a'){
-                        rotulo = EnumRotuloReconhecimento.Q4.getRotulo();
-                    } else if (caractere == 'b'){
-                        rotulo = EnumRotuloReconhecimento.Q2.getRotulo();
-                    } else {
-                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
-                        return EnumResultado.PALAVRA_INVALIDA;
-                    }
-                } else if (rotulo.equals(EnumRotuloReconhecimento.Q4.getRotulo())) {
-                    caminho.append(", ").append(rotulo);
-                    if (caractere == 'a'){
-                        rotulo = EnumRotuloReconhecimento.Q3.getRotulo();
-                    } else {
-                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
-                        return EnumResultado.PALAVRA_INVALIDA;
-                    } 
-                }
-            } else {
-                caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
-                for (int j = 0; j < seq.length(); j++) {
-                    char palavraEspecial = seq.charAt(j);
-                    if (this.caracteresEspecificos.contains(palavraEspecial)){
-                        return EnumResultado.PALAVRA_VALIDA;
-                    }
-                }
-                return EnumResultado.SIMBOLO_ESPECIAL;
-            }
-        }
-        this.caminho.append(", ").append(rotulo);
+//        String rotulo = EnumRotuloReconhecimento.Q0.getRotulo();
+//        for (int i = 0; i < seq.length(); i++) {
+//            char caractere = seq.charAt(i);
+//            if (caractere == 'a' || caractere == 'b' || caractere == 'c'){
+//                if (rotulo.equals(EnumRotuloReconhecimento.Q1_Q5.getRotulo())){
+//                    caminho.append(", ").append(rotulo);
+//                    if (caractere == 'a'){
+//                        rotulo = EnumRotuloReconhecimento.Q1_Q6.getRotulo();
+//                    } else if (caractere == 'b'){
+//                        rotulo = EnumRotuloReconhecimento.Q2.getRotulo();
+//                    } else {
+//                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
+//                        return EnumResultado.PALAVRA_INVALIDA;
+//                    }
+//                } else if (rotulo.equals(EnumRotuloReconhecimento.Q7.getRotulo())){
+//                    caminho.append(", ").append(rotulo);
+//                    if (caractere == 'b' || caractere == 'c'){
+//                        rotulo = EnumRotuloReconhecimento.Q8.getRotulo();
+//                    } else {
+//                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
+//                        return EnumResultado.PALAVRA_INVALIDA;
+//                    }
+//                } else if (rotulo.equals(EnumRotuloReconhecimento.Q1_Q6.getRotulo())){
+//                    caminho.append(", ").append(rotulo);
+//                    if (caractere == 'a'){
+//                        rotulo = EnumRotuloReconhecimento.Q1_Q5.getRotulo();
+//                    } else if (caractere == 'b'){
+//                        rotulo = EnumRotuloReconhecimento.Q2_Q7.getRotulo();
+//                    } else {
+//                        rotulo = EnumRotuloReconhecimento.Q7.getRotulo();
+//                    }
+//                } else if (rotulo.equals(EnumRotuloReconhecimento.Q2.getRotulo())) {
+//                    caminho.append(", ").append(rotulo);
+//                    if (caractere == 'a'){
+//                        rotulo = EnumRotuloReconhecimento.Q3.getRotulo();
+//                    } else {
+//                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
+//                        return EnumResultado.PALAVRA_INVALIDA;
+//                    }
+//                } else if (rotulo.equals(EnumRotuloReconhecimento.Q8.getRotulo())) {
+//                    caminho.append(", ").append(rotulo);
+//                    if (caractere == 'b' || caractere == 'c'){
+//                        rotulo = EnumRotuloReconhecimento.Q7.getRotulo();
+//                    } else {
+//                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
+//                        return EnumResultado.PALAVRA_INVALIDA;
+//                    }
+//                } else if (rotulo.equals(EnumRotuloReconhecimento.Q2_Q7.getRotulo())) {
+//                    caminho.append(", ").append(rotulo);
+//                    if (caractere == 'a'){
+//                        rotulo = EnumRotuloReconhecimento.Q3.getRotulo();
+//                    } else if (caractere == 'b' || caractere == 'c'){
+//                        rotulo = EnumRotuloReconhecimento.Q8.getRotulo();
+//                    } 
+//                } else if (rotulo.equals(EnumRotuloReconhecimento.Q3.getRotulo())) {
+//                    caminho.append(", ").append(rotulo);
+//                    if (caractere == 'a'){
+//                        rotulo = EnumRotuloReconhecimento.Q4.getRotulo();
+//                    } else if (caractere == 'b'){
+//                        rotulo = EnumRotuloReconhecimento.Q2.getRotulo();
+//                    } else {
+//                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
+//                        return EnumResultado.PALAVRA_INVALIDA;
+//                    }
+//                } else if (rotulo.equals(EnumRotuloReconhecimento.Q4.getRotulo())) {
+//                    caminho.append(", ").append(rotulo);
+//                    if (caractere == 'a'){
+//                        rotulo = EnumRotuloReconhecimento.Q3.getRotulo();
+//                    } else {
+//                        caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
+//                        return EnumResultado.PALAVRA_INVALIDA;
+//                    } 
+//                }
+//            } else {
+//                caminho.append(", ").append(EnumRotuloReconhecimento.Q_ERRO.getRotulo());
+//                for (int j = 0; j < seq.length(); j++) {
+//                    char palavraEspecial = seq.charAt(j);
+//                    if (this.caracteresEspecificos.contains(palavraEspecial)){
+//                        return EnumResultado.PALAVRA_VALIDA;
+//                    }
+//                }
+//                return EnumResultado.SIMBOLO_ESPECIAL;
+//            }
+//        }
+//        this.caminho.append(", ").append(rotulo);
         return EnumResultado.PALAVRA_INVALIDA;
     }
 
@@ -344,10 +340,5 @@ public class Aplicacao extends javax.swing.JFrame {
             }
         }
         return palavras.toString().split("\n");
-    }
-    
-    public void setCaracteresEspecificos() {
-        this.caracteresEspecificos.add("\'");
-        this.caracteresEspecificos.add("\"");
     }
 }
