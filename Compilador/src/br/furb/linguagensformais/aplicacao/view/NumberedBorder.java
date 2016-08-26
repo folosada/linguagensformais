@@ -1,4 +1,4 @@
-package br.furb.linguagensformais.aplicacao;
+package br.furb.linguagensformais.aplicacao.view;
 
 import java.awt.Color;
 import java.awt.Component;

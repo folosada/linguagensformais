@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.furb.linguagensformais.aplicacao;
+package br.furb.linguagensformais.aplicacao.view;
 
+import br.furb.linguagensformais.aplicacao.Automato;
+import br.furb.linguagensformais.aplicacao.Palavra;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,9 +18,9 @@ import javax.swing.table.DefaultTableModel;
  * @author Flávio e Carol
  */
 public class Aplicacao extends javax.swing.JFrame {
-    private List<Palavra> lstPalavra = null;
-    private DefaultTableModel model;
-    private String[] limparModel;
+    private List<Palavra> lstPalavra;
+    private DefaultTableModel tableModel;
+    private String[] limparTableModel;
     private Automato automato;
     
     /**
@@ -25,18 +28,10 @@ public class Aplicacao extends javax.swing.JFrame {
      */
     public Aplicacao() {
         initComponents();
-        this.setResizable(false);
-        this.setLocationRelativeTo(null);
-        this.JTA_Editor_Palavras.setBorder(new NumberedBorder());
-        this.model = (DefaultTableModel) this.JTable_Valores.getModel();
-        this.limparModel = new String[4];
-        this.lstPalavra = new ArrayList<>();
-        this.model.getDataVector().setSize(0);
-        for (int linha = 0; linha < 8; linha++) {
-            model.addRow(this.limparModel);
-        }
+        this.formatarTela();
+        this.inicializarCampos();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,24 +42,39 @@ public class Aplicacao extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        JTA_Editor_Palavras = new javax.swing.JTextArea();
+        jTable1 = new javax.swing.JTable();
+        JSP_CampoA = new javax.swing.JScrollPane();
+        JTA_CampoA = new javax.swing.JTextArea();
         JB_Analisar = new javax.swing.JButton();
         JB_Limpar = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        JTable_Valores = new javax.swing.JTable();
+        JSP_CampoB = new javax.swing.JScrollPane();
+        JT_CampoB = new javax.swing.JTable();
         JB_Equipe = new javax.swing.JButton();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane1.setMinimumSize(new java.awt.Dimension(23, 187));
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(183, 187));
+        JSP_CampoA.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        JSP_CampoA.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        JSP_CampoA.setMinimumSize(new java.awt.Dimension(23, 187));
+        JSP_CampoA.setPreferredSize(new java.awt.Dimension(183, 187));
 
-        JTA_Editor_Palavras.setColumns(20);
-        JTA_Editor_Palavras.setRows(8);
-        JTA_Editor_Palavras.setPreferredSize(new java.awt.Dimension(864, 187));
-        jScrollPane1.setViewportView(JTA_Editor_Palavras);
+        JTA_CampoA.setColumns(20);
+        JTA_CampoA.setRows(8);
+        JTA_CampoA.setPreferredSize(new java.awt.Dimension(864, 187));
+        JSP_CampoA.setViewportView(JTA_CampoA);
 
         JB_Analisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/linguagensformais/aplicacao/imagens/forward.png"))); // NOI18N
         JB_Analisar.setText("Analisar");
@@ -82,11 +92,11 @@ public class Aplicacao extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane2.setMinimumSize(new java.awt.Dimension(23, 173));
+        JSP_CampoB.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        JSP_CampoB.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        JSP_CampoB.setMinimumSize(new java.awt.Dimension(23, 173));
 
-        JTable_Valores.setModel(new javax.swing.table.DefaultTableModel(
+        JT_CampoB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -98,8 +108,8 @@ public class Aplicacao extends javax.swing.JFrame {
                 "Linha", "Resultado", "Sequência", "Reconhecimento"
             }
         ));
-        JTable_Valores.setMinimumSize(new java.awt.Dimension(0, 128));
-        jScrollPane2.setViewportView(JTable_Valores);
+        JT_CampoB.setMinimumSize(new java.awt.Dimension(0, 128));
+        JSP_CampoB.setViewportView(JT_CampoB);
 
         JB_Equipe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/linguagensformais/aplicacao/imagens/system-users.png"))); // NOI18N
         JB_Equipe.setText("Equipe");
@@ -113,42 +123,43 @@ public class Aplicacao extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(JSP_CampoA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(JB_Analisar, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JB_Limpar, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JB_Equipe, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(JSP_CampoB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JSP_CampoA, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(JB_Equipe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(JB_Limpar, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                     .addComponent(JB_Analisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(JSP_CampoB, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void JB_AnalisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_AnalisarActionPerformed
-        this.lstPalavra = new ArrayList<>();
         this.analisar();
     }//GEN-LAST:event_JB_AnalisarActionPerformed
 
     private void JB_LimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_LimparActionPerformed
-        this.limparCampos();
+        this.limparCampoA();
+        this.limparCampoB();
     }//GEN-LAST:event_JB_LimparActionPerformed
 
     private void JB_EquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_EquipeActionPerformed
-        JOptionPane.showMessageDialog(null, "Aluno: Gabriel");
+        JOptionPane.showMessageDialog(null, "Alunos: Flávio Omar Losada e\n" 
+                                   + "               Gabriel da Silva Bernardi");
     }//GEN-LAST:event_JB_EquipeActionPerformed
 
     /**
@@ -184,60 +195,67 @@ public class Aplicacao extends javax.swing.JFrame {
     private javax.swing.JButton JB_Analisar;
     private javax.swing.JButton JB_Equipe;
     private javax.swing.JButton JB_Limpar;
-    private javax.swing.JTextArea JTA_Editor_Palavras;
-    private javax.swing.JTable JTable_Valores;
+    private javax.swing.JScrollPane JSP_CampoA;
+    private javax.swing.JScrollPane JSP_CampoB;
+    private javax.swing.JTextArea JTA_CampoA;
+    private javax.swing.JTable JT_CampoB;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
-
-    private void limparCampos() {
-        this.JTA_Editor_Palavras.setText("");
-        this.lstPalavra = new ArrayList<>();
-        this.model.getDataVector().setSize(0);
+    
+    private void formatarTela(){
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+    }
+    
+    private void inicializarCampos(){
+        this.JTA_CampoA.setBorder(new NumberedBorder());
+        this.definirtamanhoColunaJTable();
+        this.tableModel = (DefaultTableModel) this.JT_CampoB.getModel();
+        this.limparTableModel = new String[4];
+        this.limparCampoA();
+        this.limparCampoB();
+    }
+    
+    private void definirtamanhoColunaJTable(){
+        this.JT_CampoB.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);  
+        this.JT_CampoB.getColumnModel().getColumn(0).setPreferredWidth(50);  
+        this.JT_CampoB.getColumnModel().getColumn(1).setPreferredWidth(150);  
+        this.JT_CampoB.getColumnModel().getColumn(2).setPreferredWidth(250);  
+        this.JT_CampoB.getColumnModel().getColumn(3).setPreferredWidth(406);  
+    }
+    
+    private void limparCampoA(){
+        this.JTA_CampoA.setText("");
+    }
+    
+    private void limparCampoB(){
+        this.tableModel.getDataVector().setSize(0);
         for (int linha = 0; linha < 8; linha++) {
-            model.addRow(this.limparModel);
+            tableModel.addRow(this.limparTableModel);
         }
     }
     
     private void analisar() {
-        this.model.getDataVector().setSize(0);
-        for (int linha = 0; linha < 8; linha++) {
-            model.addRow(this.limparModel);
-        }
-        this.getPalavras(this.JTA_Editor_Palavras.getText());
+        this.lstPalavra = new ArrayList<>();
+        this.limparCampoB();
+        this.procurarPalavras();
         this.popularJTable();
     }
     
-    private void popularJTable() {
-        this.model.getDataVector().setSize(0);
+    public void procurarPalavras(){
+        String texto = this.JTA_CampoA.getText();
         
-        int controleLinhasEmBranco = 0;
-        for(Palavra p : this.lstPalavra){
-            Object[] row = new Object[4];
-            row[0] = p.getLinha();
-            row[1] = p.getResultado();
-            row[2] = p.getSequencia();
-            row[3] = p.getReconhecimento();
-            model.addRow(row);
-            controleLinhasEmBranco++;
-        }
-        for (; controleLinhasEmBranco < 8; controleLinhasEmBranco++) {
-            model.addRow(this.limparModel);
-        }
-    }
-    
-    public void getPalavras(String text){
-        this.lstPalavra = new ArrayList<>();
-        String[] linha = text.split("\\n");
+        String[] linha = texto.split("\\n");
         for (int numeroLinha = 0; numeroLinha < linha.length; numeroLinha++) {
-            String palavraFormatada = linha[numeroLinha].replace(" ", "\n").replace("\t", "\n");
-            String[] sequencias = palavraFormatada.split("\\n");
+            String separarPalavras = linha[numeroLinha].replace(" ", "\n").replace("\t", "\n");
+            String[] sequencias = separarPalavras.split("\\n");
             for (String sequencia : sequencias) {
-                if (this.simboloEspecial(sequencia)) {
-                    String[] simbolosPalavras = this.obterSequenciaEspecial(sequencia);
-                    for (String simbolosPalavra : simbolosPalavras) {
-                        if (!simbolosPalavra.isEmpty()){
-                            this.lstPalavra.add(this.criarPalavra(simbolosPalavra, numeroLinha));
+                if (this.possuiSimboloEspecial(sequencia)) {
+                    String[] sequenciasSimbolosEspeciais = this.separarSequenciaSimboloEspecial(sequencia);
+                    for (String sequenciaSimboloEspeciai : sequenciasSimbolosEspeciais) {
+                        if (!sequenciaSimboloEspeciai.isEmpty()){
+                            this.lstPalavra.add(this.criarPalavra(sequenciaSimboloEspeciai, numeroLinha));
                         }
                     }
                 } else if (!sequencia.equals("")) {
@@ -250,7 +268,7 @@ public class Aplicacao extends javax.swing.JFrame {
     private Palavra criarPalavra(String sequencia, int numeroLinha){
         Palavra palavra = new Palavra();
         this.automato = new Automato();
-        this.automato.q0(sequencia, 0);
+        this.automato.q0(sequencia);
         
         palavra.setSequencia(sequencia);
         palavra.setLinha(numeroLinha + 1);
@@ -259,21 +277,39 @@ public class Aplicacao extends javax.swing.JFrame {
         return palavra;
     }
 
-    private boolean simboloEspecial(String palavra) {
+    private boolean possuiSimboloEspecial(String palavra) {
         return palavra.contains(";") || palavra.contains(".") 
                 || palavra.contains(",");
     }
     
-    private String[] obterSequenciaEspecial(String sequencia){
-        String[] separarCaracteres = sequencia.split("");
+    private String[] separarSequenciaSimboloEspecial(String sequencia){
+        String[] caracteres = sequencia.split("");
         StringBuilder palavras = new StringBuilder();
-        for (String separarCaractere : separarCaracteres) {
-            if (!separarCaractere.equals(";") && !separarCaractere.equals(".") && !separarCaractere.equals(",")) {
-                palavras.append(separarCaractere);
+        for (String caracter : caracteres) {
+            if (caracter.equals(";") || caracter.equals(".") || caracter.equals(",")) {
+                palavras.append("\n").append(caracter).append("\n");
             } else {
-                palavras.append("\n").append(separarCaractere);
+                palavras.append(caracter);
             }
         }
         return palavras.toString().split("\n");
+    }
+    
+    private void popularJTable() {
+        this.tableModel.getDataVector().setSize(0);
+        
+        int controleLinhasEmBranco = 0;
+        for(Palavra p : this.lstPalavra){
+            Object[] row = new Object[4];
+            row[0] = p.getLinha();
+            row[1] = p.getResultado();
+            row[2] = p.getSequencia();
+            row[3] = p.getReconhecimento();
+            tableModel.addRow(row);
+            controleLinhasEmBranco++;
+        }
+        for (; controleLinhasEmBranco < 8; controleLinhasEmBranco++) {
+            tableModel.addRow(this.limparTableModel);
+        }
     }
 }

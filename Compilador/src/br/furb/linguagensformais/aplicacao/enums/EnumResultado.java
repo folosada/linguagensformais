@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.furb.linguagensformais.aplicacao;
+package br.furb.linguagensformais.aplicacao.enums;
 
 /**
  *
@@ -13,7 +13,7 @@ public enum EnumResultado {
     
     PALAVRA_VALIDA("Palavra Válida"),
     PALAVRA_INVALIDA("Erro: Palavra Inválida"),
-    SIMBOLO_INVALIDO("Erro: Símbolo Inválido"),
+    SIMBOLO_INVALIDO("Erro: Símbolo(s) Inválido(s)"),
     SIMBOLO_ESPECIAL("Símbolo Especial");
     
     private String valor;
