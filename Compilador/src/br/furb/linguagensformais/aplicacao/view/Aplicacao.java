@@ -43,13 +43,13 @@ public class Aplicacao extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        JSP_CampoA = new javax.swing.JScrollPane();
-        JTA_CampoA = new javax.swing.JTextArea();
         JB_Analisar = new javax.swing.JButton();
         JB_Limpar = new javax.swing.JButton();
+        JB_Equipe = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        JTA_CampoA = new javax.swing.JTextArea();
         JSP_CampoB = new javax.swing.JScrollPane();
         JT_CampoB = new javax.swing.JTable();
-        JB_Equipe = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -65,16 +65,7 @@ public class Aplicacao extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        JSP_CampoA.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        JSP_CampoA.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        JSP_CampoA.setMinimumSize(new java.awt.Dimension(23, 187));
-        JSP_CampoA.setPreferredSize(new java.awt.Dimension(183, 187));
-
-        JTA_CampoA.setColumns(20);
-        JTA_CampoA.setRows(8);
-        JTA_CampoA.setPreferredSize(new java.awt.Dimension(864, 187));
-        JSP_CampoA.setViewportView(JTA_CampoA);
+        setPreferredSize(new java.awt.Dimension(864, 410));
 
         JB_Analisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/linguagensformais/aplicacao/imagens/forward.png"))); // NOI18N
         JB_Analisar.setText("Analisar");
@@ -92,25 +83,6 @@ public class Aplicacao extends javax.swing.JFrame {
             }
         });
 
-        JSP_CampoB.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        JSP_CampoB.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        JSP_CampoB.setMinimumSize(new java.awt.Dimension(23, 173));
-
-        JT_CampoB.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Linha", "Resultado", "Sequência", "Reconhecimento"
-            }
-        ));
-        JT_CampoB.setMinimumSize(new java.awt.Dimension(0, 128));
-        JSP_CampoB.setViewportView(JT_CampoB);
-
         JB_Equipe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/linguagensformais/aplicacao/imagens/system-users.png"))); // NOI18N
         JB_Equipe.setText("Equipe");
         JB_Equipe.addActionListener(new java.awt.event.ActionListener() {
@@ -119,30 +91,60 @@ public class Aplicacao extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(864, 187));
+
+        JTA_CampoA.setColumns(20);
+        JTA_CampoA.setRows(5);
+        jScrollPane2.setViewportView(JTA_CampoA);
+
+        JSP_CampoB.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        JSP_CampoB.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        JSP_CampoB.setPreferredSize(new java.awt.Dimension(864, 173));
+
+        JT_CampoB.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        JSP_CampoB.setViewportView(JT_CampoB);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(JSP_CampoA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(JB_Analisar, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JB_Limpar, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JB_Equipe, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
-            .addComponent(JSP_CampoB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(JB_Equipe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(JSP_CampoB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(JSP_CampoA, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JB_Equipe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JB_Limpar, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                    .addComponent(JB_Analisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JSP_CampoB, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(JB_Limpar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(JB_Analisar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(JB_Equipe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(JSP_CampoB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -195,11 +197,11 @@ public class Aplicacao extends javax.swing.JFrame {
     private javax.swing.JButton JB_Analisar;
     private javax.swing.JButton JB_Equipe;
     private javax.swing.JButton JB_Limpar;
-    private javax.swing.JScrollPane JSP_CampoA;
     private javax.swing.JScrollPane JSP_CampoB;
     private javax.swing.JTextArea JTA_CampoA;
     private javax.swing.JTable JT_CampoB;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
     
