@@ -7,11 +7,12 @@ package br.furb.linguagensformais.aplicacao.view;
 
 import br.furb.linguagensformais.aplicacao.Automato;
 import br.furb.linguagensformais.aplicacao.Palavra;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 
 /**
  *
@@ -41,8 +42,6 @@ public class Aplicacao extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         JB_Analisar = new javax.swing.JButton();
         JB_Limpar = new javax.swing.JButton();
         JB_Equipe = new javax.swing.JButton();
@@ -51,21 +50,10 @@ public class Aplicacao extends javax.swing.JFrame {
         JSP_CampoB = new javax.swing.JScrollPane();
         JT_CampoB = new javax.swing.JTable();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("reconhecedor de linguagem regular");
         setPreferredSize(new java.awt.Dimension(864, 410));
+        setSize(new java.awt.Dimension(864, 410));
 
         JB_Analisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/linguagensformais/aplicacao/imagens/forward.png"))); // NOI18N
         JB_Analisar.setText("Analisar");
@@ -91,6 +79,7 @@ public class Aplicacao extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setPreferredSize(new java.awt.Dimension(864, 187));
@@ -99,10 +88,12 @@ public class Aplicacao extends javax.swing.JFrame {
         JTA_CampoA.setRows(5);
         jScrollPane2.setViewportView(JTA_CampoA);
 
+        JSP_CampoB.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         JSP_CampoB.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         JSP_CampoB.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         JSP_CampoB.setPreferredSize(new java.awt.Dimension(864, 173));
 
+        JT_CampoB.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         JT_CampoB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -111,9 +102,20 @@ public class Aplicacao extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Linha", "Resultado", "Sequência", "Reconhecimento"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        JT_CampoB.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        JT_CampoB.setAutoscrolls(false);
+        JT_CampoB.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         JSP_CampoB.setViewportView(JT_CampoB);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -129,9 +131,7 @@ public class Aplicacao extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(JSP_CampoB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(JSP_CampoB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,7 +142,7 @@ public class Aplicacao extends javax.swing.JFrame {
                     .addComponent(JB_Limpar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(JB_Analisar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(JB_Equipe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JSP_CampoB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -200,9 +200,7 @@ public class Aplicacao extends javax.swing.JFrame {
     private javax.swing.JScrollPane JSP_CampoB;
     private javax.swing.JTextArea JTA_CampoA;
     private javax.swing.JTable JT_CampoB;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
     
     private void formatarTela(){
@@ -221,6 +219,7 @@ public class Aplicacao extends javax.swing.JFrame {
     
     private void definirtamanhoColunaJTable(){
         this.JT_CampoB.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);  
+        tca.adjustColumns();
         this.JT_CampoB.getColumnModel().getColumn(0).setPreferredWidth(50);  
         this.JT_CampoB.getColumnModel().getColumn(1).setPreferredWidth(150);  
         this.JT_CampoB.getColumnModel().getColumn(2).setPreferredWidth(250);  
