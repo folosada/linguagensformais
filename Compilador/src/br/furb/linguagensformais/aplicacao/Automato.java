@@ -33,7 +33,7 @@ public class Automato {
             } else if (caracter == 'b' || caracter == 'c'){
                 this.q7(seq);
             } else {
-                this.sequenciaInvalida(caracter);
+                this.sequenciaInvalida();
             }
         } else {
             this.reconhecimento.append(", ").append(EnumRotulo.Q10.getRotulo());
@@ -52,7 +52,7 @@ public class Automato {
             } else if (caracter == 'b'){
                 this.q2(seq);
             } else {
-                this.sequenciaInvalida(caracter);
+                this.sequenciaInvalida();
             }
         } else {
             this.resultado = EnumResultado.PALAVRA_VALIDA.getValor();
@@ -68,7 +68,7 @@ public class Automato {
             if (caracter == 'b' || caracter == 'c'){
                 this.q8(seq);
             } else {
-                this.sequenciaInvalida(caracter);
+                this.sequenciaInvalida();
             }
         } else {
             this.resultado = EnumResultado.PALAVRA_VALIDA.getValor();
@@ -88,7 +88,7 @@ public class Automato {
             } else if (caracter == 'c'){
                this.q7(seq); 
             } else {
-                this.sequenciaInvalida(caracter);
+                this.sequenciaInvalida();
             }
         } else {
             this.resultado = EnumResultado.PALAVRA_VALIDA.getValor();
@@ -104,7 +104,7 @@ public class Automato {
             if (caracter == 'a'){
                 this.q3(seq);
             } else {
-                this.sequenciaInvalida(caracter);
+                this.sequenciaInvalida();
             }
         } else {
             this.resultado = EnumResultado.PALAVRA_INVALIDA.getValor();
@@ -120,7 +120,7 @@ public class Automato {
             if (caracter == 'b' || caracter == 'c'){
                 this.q7(seq);
             } else {
-                this.sequenciaInvalida(caracter);
+                this.sequenciaInvalida();
             }
         } else {
             this.resultado = EnumResultado.PALAVRA_INVALIDA.getValor();
@@ -138,7 +138,7 @@ public class Automato {
             } else if (caracter == 'b' || caracter == 'c'){
                 this.q8(seq);
             } else {
-                this.sequenciaInvalida(caracter);
+                this.sequenciaInvalida();
             }
         } else {
             this.resultado = EnumResultado.PALAVRA_VALIDA.getValor();
@@ -156,7 +156,7 @@ public class Automato {
             } else if (caracter == 'b'){
                 this.q2(seq);
             } else {
-                this.sequenciaInvalida(caracter);
+                this.sequenciaInvalida();
             }
         } else {
             this.resultado = EnumResultado.PALAVRA_VALIDA.getValor();
@@ -172,7 +172,7 @@ public class Automato {
             if (caracter == 'a'){
                 this.q3(seq);
             } else {
-                this.sequenciaInvalida(caracter);
+                this.sequenciaInvalida();
             }
         } else {
             this.resultado = EnumResultado.PALAVRA_INVALIDA.getValor();
@@ -184,19 +184,13 @@ public class Automato {
         return seq.length() == this.index;
     }
     
-    private void sequenciaInvalida(char caracter) {
-        if (this.isCaracterEspecifico(caracter)){
+    private void sequenciaInvalida() {
+        if (this.index == 0){
             this.resultado = EnumResultado.SIMBOLO_INVALIDO.getValor();
         } else {
             this.resultado = EnumResultado.PALAVRA_INVALIDA.getValor();
         }
         this.reconhecimento.append(", ").append(EnumRotulo.Q_ERRO.getRotulo());
-    }
-    
-    private boolean isCaracterEspecifico(char caracter){
-        return !Character.isLetter(caracter) 
-                && !Character.isDigit(caracter)
-                && !this.isSimboloEspecial(caracter);
     }
     
     public boolean isSimboloEspecial(char caracter){
