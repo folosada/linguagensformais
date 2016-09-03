@@ -41,16 +41,12 @@ public class Aplicacao extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
-        fundoJP = new javax.swing.JPanel();
-        textAreaJP = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        JTA_CampoA = new javax.swing.JTextArea();
-        botoesJP = new javax.swing.JPanel();
         JB_Analisar = new javax.swing.JButton();
         JB_Limpar = new javax.swing.JButton();
         JB_Equipe = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        JTA_CampoA = new javax.swing.JTextArea();
         JSP_CampoB = new javax.swing.JScrollPane();
         JT_CampoB = new javax.swing.JTable();
 
@@ -58,97 +54,52 @@ public class Aplicacao extends javax.swing.JFrame {
         setTitle("reconhecedor de linguagem regular");
         setPreferredSize(new java.awt.Dimension(864, 410));
         setSize(new java.awt.Dimension(864, 410));
-        getContentPane().setLayout(new java.awt.GridLayout());
-
-        fundoJP.setMinimumSize(new java.awt.Dimension(864, 410));
-        fundoJP.setPreferredSize(new java.awt.Dimension(864, 410));
-        java.awt.GridBagLayout fundoJPLayout = new java.awt.GridBagLayout();
-        fundoJPLayout.columnWidths = new int[] {0};
-        fundoJPLayout.rowHeights = new int[] {0, 5, 0, 5, 0};
-        fundoJP.setLayout(fundoJPLayout);
-
-        textAreaJP.setPreferredSize(new java.awt.Dimension(864, 187));
-        textAreaJP.setLayout(new java.awt.GridLayout());
-
-        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(860, 183));
-
-        JTA_CampoA.setColumns(20);
-        JTA_CampoA.setRows(5);
-        JTA_CampoA.setMaximumSize(new java.awt.Dimension(856, 179));
-        JTA_CampoA.setMinimumSize(new java.awt.Dimension(856, 179));
-        JTA_CampoA.setPreferredSize(new java.awt.Dimension(856, 179));
-        jScrollPane2.setViewportView(JTA_CampoA);
-
-        textAreaJP.add(jScrollPane2);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
-        gridBagConstraints.weightx = 864.0;
-        gridBagConstraints.weighty = 187.0;
-        fundoJP.add(textAreaJP, gridBagConstraints);
-
-        botoesJP.setName(""); // NOI18N
-        botoesJP.setPreferredSize(new java.awt.Dimension(860, 50));
-        botoesJP.setLayout(new java.awt.GridLayout());
 
         JB_Analisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/linguagensformais/aplicacao/imagens/forward.png"))); // NOI18N
         JB_Analisar.setText("Analisar");
-        JB_Analisar.setMaximumSize(new java.awt.Dimension(274, 46));
-        JB_Analisar.setMinimumSize(new java.awt.Dimension(274, 46));
-        JB_Analisar.setPreferredSize(new java.awt.Dimension(274, 46));
         JB_Analisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JB_AnalisarActionPerformed(evt);
             }
         });
-        botoesJP.add(JB_Analisar);
 
         JB_Limpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/linguagensformais/aplicacao/imagens/editcut.png"))); // NOI18N
         JB_Limpar.setText("Limpar");
-        JB_Limpar.setMaximumSize(new java.awt.Dimension(274, 46));
-        JB_Limpar.setMinimumSize(new java.awt.Dimension(274, 46));
-        JB_Limpar.setPreferredSize(new java.awt.Dimension(274, 46));
         JB_Limpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JB_LimparActionPerformed(evt);
             }
         });
-        botoesJP.add(JB_Limpar);
 
         JB_Equipe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/furb/linguagensformais/aplicacao/imagens/system-users.png"))); // NOI18N
         JB_Equipe.setText("Equipe");
-        JB_Equipe.setMaximumSize(new java.awt.Dimension(274, 46));
-        JB_Equipe.setMinimumSize(new java.awt.Dimension(274, 46));
-        JB_Equipe.setPreferredSize(new java.awt.Dimension(274, 46));
         JB_Equipe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JB_EquipeActionPerformed(evt);
             }
         });
-        botoesJP.add(JB_Equipe);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 864.0;
-        gridBagConstraints.weighty = 5.0;
-        fundoJP.add(botoesJP, gridBagConstraints);
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(864, 187));
 
+        JTA_CampoA.setColumns(20);
+        JTA_CampoA.setRows(5);
+        jScrollPane2.setViewportView(JTA_CampoA);
+
+        JSP_CampoB.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         JSP_CampoB.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         JSP_CampoB.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         JSP_CampoB.setPreferredSize(new java.awt.Dimension(864, 173));
 
+        JT_CampoB.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         JT_CampoB.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
                 "Linha", "Resultado", "Sequência", "Reconhecimento"
@@ -164,38 +115,55 @@ public class Aplicacao extends javax.swing.JFrame {
         });
         JT_CampoB.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         JT_CampoB.setAutoscrolls(false);
-        JT_CampoB.setPreferredSize(new java.awt.Dimension(864, 173));
         JT_CampoB.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         JSP_CampoB.setViewportView(JT_CampoB);
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
-        gridBagConstraints.weightx = 864.0;
-        gridBagConstraints.weighty = 173.0;
-        fundoJP.add(JSP_CampoB, gridBagConstraints);
-
-        getContentPane().add(fundoJP);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(JB_Analisar, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(JB_Limpar, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(JB_Equipe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JSP_CampoB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(JB_Limpar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(JB_Analisar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(JB_Equipe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(JSP_CampoB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void JB_EquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_EquipeActionPerformed
-        JOptionPane.showMessageDialog(null, "Alunos: Flávio Omar Losada e\n"
-            + "               Gabriel da Silva Bernardi");
-    }//GEN-LAST:event_JB_EquipeActionPerformed
+    private void JB_AnalisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_AnalisarActionPerformed
+        this.analisar();
+    }//GEN-LAST:event_JB_AnalisarActionPerformed
 
     private void JB_LimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_LimparActionPerformed
         this.limparCampoA();
         this.limparCampoB();
     }//GEN-LAST:event_JB_LimparActionPerformed
 
-    private void JB_AnalisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_AnalisarActionPerformed
-        this.analisar();
-    }//GEN-LAST:event_JB_AnalisarActionPerformed
+    private void JB_EquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_EquipeActionPerformed
+        JOptionPane.showMessageDialog(null, "Alunos: Flávio Omar Losada e\n" 
+                                   + "               Gabriel da Silva Bernardi");
+    }//GEN-LAST:event_JB_EquipeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,10 +201,7 @@ public class Aplicacao extends javax.swing.JFrame {
     private javax.swing.JScrollPane JSP_CampoB;
     private javax.swing.JTextArea JTA_CampoA;
     private javax.swing.JTable JT_CampoB;
-    private javax.swing.JPanel botoesJP;
-    private javax.swing.JPanel fundoJP;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JPanel textAreaJP;
     // End of variables declaration//GEN-END:variables
     
     private void formatarTela(){
@@ -253,7 +218,7 @@ public class Aplicacao extends javax.swing.JFrame {
         this.limparCampoB();
     }
     
-    private void definirtamanhoColunaJTable() {
+    private void definirtamanhoColunaJTable(){
         this.JT_CampoB.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);  
         this.JT_CampoB.getColumnModel().getColumn(0).setPreferredWidth(50);  
         this.JT_CampoB.getColumnModel().getColumn(1).setPreferredWidth(150);  
